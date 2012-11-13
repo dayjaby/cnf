@@ -11,10 +11,6 @@ import sat.Variable;
 
 public class RubixSAT5 extends RubixSAT {
 
-	public RubixSAT5(RubixCube rubix) {
-		super(rubix);
-	}
-
 	protected Expression AMO(final Variable var, final int start, final int end) {
 		// x0 -> 0 0 <-> -x0 | s1 | s0
 		// x1 -> 0 1 <-> -x1 | s1 | -s0

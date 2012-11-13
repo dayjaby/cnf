@@ -2,7 +2,7 @@ package rubix;
 
 import java.io.FileInputStream;
 
-import sat.DIMACSDecoder;
+import sat.SATOutDecoder;
 import sat.Index;
 import sat.Variable;
 
@@ -23,7 +23,7 @@ public class RubixDecoder extends RubixPermutation {
 		int states = Integer.parseInt(args[0]);
 		FileInputStream map = new FileInputStream("rubix.map");
 		FileInputStream out = new FileInputStream("rubix.out");
-		DIMACSDecoder decoder = new DIMACSDecoder();
+		SATOutDecoder decoder = new SATOutDecoder();
 		decoder.decodeMapping(convertStreamToString(map));
 		decoder.decodeSATOutput(convertStreamToString(out));
 		Index solvedState = new Index();

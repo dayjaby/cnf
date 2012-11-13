@@ -13,10 +13,6 @@ import sat.Variable;
 
 public class RubixSAT3 extends RubixSAT {
 
-	public RubixSAT3(RubixCube rubix) {
-		super(rubix);
-	}
-
 	protected Expression AMO_TwoProduct(final Variable var, final int start, final int end) {
 		final int n = 1 + end - start;
 		final int p = (int) Math.ceil(Math.sqrt(n));

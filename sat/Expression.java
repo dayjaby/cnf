@@ -48,4 +48,21 @@ public class Expression {
 	public List<Clause> getClauses() {
 		return clauses;
 	}
+	
+	public Expression negate() {
+		if(clauses.size() == 0) 
+			return this;
+		else {
+			Expression expr = new Expression();
+			for(Clause clause : clauses) {
+				Expression neg = clause.negate();
+				Expression iexpr = new Expression();
+				for(Clause iclause : neg.clauses) {
+					iexpr = iexpr.or(iclause);
+				}
+				expr = expr.and(iexpr);
+			}
+			return expr;
+		}
+	}
 }

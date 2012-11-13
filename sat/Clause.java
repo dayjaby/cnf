@@ -33,5 +33,13 @@ public class Clause {
 	public List<Literal> getLiterals() {
 		return literals;
 	}
+	
+	public Expression negate() {
+		Expression expr = new Expression();
+		for(Literal lit : literals) {
+			expr.clauses.add(new Clause(lit.negate()));
+		}
+		return expr;
+	}
 
 }

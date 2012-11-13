@@ -11,10 +11,6 @@ import sat.Variable;
 
 public class RubixSAT4 extends RubixSAT {
 
-	public RubixSAT4(RubixCube rubix) {
-		super(rubix);
-	}
-
 	protected Expression AMO(final Variable var, final int start, final int end) {
 		final int n = 1 + end - start;
 		final int p = (int) Math.ceil(Math.sqrt(n));

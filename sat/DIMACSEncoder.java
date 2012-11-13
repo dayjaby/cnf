@@ -48,7 +48,6 @@ public class DIMACSEncoder {
 	}
 
 	public String getHeader() {
-		// important: expression must be encoded first!
 		return "p cnf " + vars + " " + clauses;
 	}
 

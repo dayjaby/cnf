@@ -7,6 +7,7 @@ import java.io.PrintStream;
 
 import sat.DIMACSEncoder;
 import sat.Expression;
+import sat.StateBasedSATProblem;
 
 public class RubixToDIMACS extends RubixPermutation {
 
@@ -72,9 +73,6 @@ public class RubixToDIMACS extends RubixPermutation {
 		public String encoding = "rubix.RubixSAT";
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) throws Exception {
 		Settings settings = new Settings();
 		for (String arg : args) {
@@ -103,8 +101,8 @@ public class RubixToDIMACS extends RubixPermutation {
 		} else {
 			rubixCube = rubixCube.applyPermutation(RubixCube.getRandomPermutation(15, settings.verbose));
 		}
-		RubixSAT rubixSAT = (RubixSAT) Class.forName(settings.encoding).getConstructor(RubixCube.class).newInstance(rubixCube);
-		Expression rubixExpr = rubixSAT.getExpression(settings.max);
+		StateBasedSATProblem<RubixCube> rubixSAT = (StateBasedSATProblem<RubixCube>) Class.forName(settings.encoding).getConstructor().newInstance();
+		Expression rubixExpr = rubixSAT.getExpression(rubixCube,settings.max+1);
 		System.err.println("Cube expression calculated");
 		DIMACSEncoder dimacs = new DIMACSEncoder(rubixExpr);
 		dimacs.writeDIMACSTo(outp);
@@ -117,16 +115,4 @@ public class RubixToDIMACS extends RubixPermutation {
 		}
 	}
 
-	public static void testFaceTurns(RubixCube rc) {
-		// concatenating 3 times the sune move sequence should result in the identity permutation
-		
-		RubixPermutation sune = LEFT.reverse().concat(UP.reverse()).concat(RIGHT).concat(UP)
-							.concat(LEFT).concat(UP.reverse()).concat(RIGHT.reverse()).concat(UP);
-		RubixPermutation sune3 = sune.concat(sune).concat(sune);
-		System.out.println("Test sune front: " + sune3.equals(IDENTITY));
-		RubixPermutation suned = FRONT.reverse().concat(DOWN.reverse()).concat(BACK).concat(DOWN)
-				.concat(FRONT).concat(DOWN.reverse()).concat(BACK.reverse()).concat(DOWN);
-		RubixPermutation suned3 = suned.concat(suned).concat(suned);
-		System.out.println("Test sune down: " + suned3.equals(IDENTITY));
-	}
 }
